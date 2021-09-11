@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
 import { Board } from '../helper'
 import useEvent from '../hooks/useEvent'
+import { Tile as TileClass } from '../helper' 
 import Cell from './Cell'
 import GameOverlay from './GameOverlay'
 import Tile from './Tile'
+import moveSound from '../assets/audio/move.wav'
+import {Howl, Howler} from 'howler'
 
 const BoardView = () => {
 
@@ -12,6 +15,9 @@ const BoardView = () => {
     
 
     const handleKeyDown = (event) => {
+        let sound = new Howl({
+            src: moveSound
+        }).play()
         if(board.hasWon()) {
             return;
         }
@@ -57,6 +63,9 @@ const BoardView = () => {
                 {tiles}
                 <GameOverlay onRestart={resetGame} board={board} />
             </div>
+            <p className="copyright">
+                Game developed by <b>Lashpixel</b> for <b>Maame Esi</b>. <br/>Tutorial and asset from <b>EduWise</b>
+            </p>
         </div>
     )
 }
